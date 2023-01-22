@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Get name of the current git origin
 REPO=$(git remote get-url origin)
 

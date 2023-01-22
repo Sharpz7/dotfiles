@@ -25,3 +25,9 @@ code-server --install-extension pkief.material-icon-theme
 
 wget https://files.mcaq.me/5x2r7.vsix
 code-server --install-extension 5x2r7.vsix
+
+# Prepare Armada Repos
+cd ~
+
+git clone https://github.com/armadaproject/armada.git
+git clone https://github.com/armadaproject/armada-operator.git

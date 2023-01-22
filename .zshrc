@@ -97,3 +97,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# code to easily switch golang versions
+export GOROOT=$(go env GOROOT)
+export PATH=$GOROOT/bin:$PATH
+
+# export GOROOT=$(go1.18.9 env GOROOT)
+# export PATH=$GOROOT/bin:$PATH

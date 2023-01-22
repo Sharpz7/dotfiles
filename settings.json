@@ -1,0 +1,61 @@
+{
+    "git.enableSmartCommit": true,
+    "files.trimTrailingWhitespace": true,
+    "workbench.colorTheme": "Mayukai Reversal",
+    "files.autoSaveDelay": 200,
+    "files.autoSave": "off",
+    "python.linting.pylintEnabled": true,
+    // FuraCode NF
+    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "'Fira Code', 'FuraCode NF', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.fontWeight": "500",
+    "editor.fontSize": 12,
+    "python.linting.enabled": true,
+    "python.terminal.activateEnvironment": false,
+    "python.linting.pylintArgs": [
+        // ignore import outside of top level
+        "--disable=import-outside-toplevel,missing-docstring,c-extension-no-member,unknown-option-value,invalid-name,no-member,line-too-long"
+    ],
+    "python.linting.ignorePatterns": [
+        "**/*pb2.pyi",
+        "**/*pb2_grpc.pyi",
+        "**/*pb2.py"
+    ],
+    "python.linting.flake8Args": [
+        "--max-line-length=88",
+        "--ignore=E203,W503"
+    ],
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.rightClickBehavior": "selectWord",
+    "git.confirmSync": false,
+    "debug.console.fontSize": 12,
+    "terminal.integrated.fontSize": 12,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "terminal.integrated.tabs.enabled": true,
+    "update.mode": "manual",
+    "extensions.autoUpdate": false,
+    "editor.inlineSuggest.enabled": true,
+    "window.menuBarVisibility": "classic",
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "python.linting.flake8Enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": true,
+        "plaintext": true,
+        "markdown": true
+    },
+    "keyboard.layout": "00000809",
+    "files.associations": {
+        "pylintrc": "ini"
+    },
+    "python.formatting.provider": "black",
+    "python.linting.mypyEnabled": true,
+    "editor.formatOnSave": true,
+    "vscode-pets.position": "explorer"
+}

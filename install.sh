@@ -13,6 +13,7 @@ cd ~/.config/coderv2/dotfiles
 cp -r .gitconfig ~/.gitconfig
 cp -r .zshrc ~/.zshrc
 cp -r .profile ~/.profile
+cp -r scripts ~/.scripts
 
 # Copy code-server config
 cp -r settings.json ~/.local/share/code-server/User/settings.json

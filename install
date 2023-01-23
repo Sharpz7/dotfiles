@@ -21,12 +21,13 @@ create_symlinks() {
         rm -rf ~/$name
         ln -s $script_dir/$name ~/$name
     done
+
+    cp $script_dir/script ~/script
+    cp -r $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 }
 
 # Copy code-server config
 touch ~/.local/share/code-server/User/settings.json
-cp $script_dir/script ~/script
-cp -r $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 
 create_symlinks
 

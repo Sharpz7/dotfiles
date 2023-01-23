@@ -16,11 +16,11 @@ create_symlinks() {
     done
 
     cp -r $script_dir/script ~/script
-    cp $script_dir/settings.json ~/.local/share/code-server/User/settings.json
+    cp $script_dir/settings.json ~/.vscode/settings.json
 }
 
 # Copy code-server config
-touch ~/.local/share/code-server/User/settings.json
+mkdir -p ~/.vscode
 
 create_symlinks
 

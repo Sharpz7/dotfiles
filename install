@@ -47,6 +47,7 @@ cd ~/projects
 git clone https://github.com/armadaproject/armada.git
 git clone https://github.com/armadaproject/armada-operator.git
 
+cd ~
 # Copy code-server config
 touch ~/.local/share/code-server/User/settings.json
 

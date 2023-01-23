@@ -24,11 +24,6 @@ sudo apt update -y
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# Copy code-server config
-touch ~/.local/share/code-server/User/settings.json
-
-create_symlinks
-
 # Custom Fonts
 git clone https://github.com/tuanpham-dev/code-server-font-patch.git
 cd code-server-font-patch
@@ -51,3 +46,8 @@ cd ~/projects
 
 git clone https://github.com/armadaproject/armada.git
 git clone https://github.com/armadaproject/armada-operator.git
+
+# Copy code-server config
+touch ~/.local/share/code-server/User/settings.json
+
+create_symlinks

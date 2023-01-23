@@ -2,10 +2,10 @@
 
 create_symlinks() {
     # Get the directory in which this script lives.
-    script_dir="~/dotfiles"
+    script_dir="/home/coder/dotfiles"
 
     # Get a list of all files in this directory that start with a dot.
-    files=$(find -maxdepth 1 -type f -name "$script_dir/.*")
+    files=$(find -maxdepth 1 -type f -wholename "$script_dir/.*")
 
     # Create a symbolic link to each file in the home directory.
     for file in $files; do

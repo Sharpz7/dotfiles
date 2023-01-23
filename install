@@ -16,7 +16,7 @@ create_symlinks() {
     done
 
     cp -r $script_dir/script ~/script
-    cp $script_dir/settings.json ~/.local/share/code-server/settings.json
+    cp $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 }
 
 # Install zsh and oh-my-zsh
@@ -25,7 +25,7 @@ sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Copy code-server config
-touch ~/.local/share/code-server/settings.json
+touch ~/.local/share/code-server/User/settings.json
 
 create_symlinks
 

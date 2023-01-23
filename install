@@ -15,8 +15,8 @@ create_symlinks() {
         ln -s $script_dir/$name ~/$name
     done
 
-    cp $script_dir/script ~/script
-    cp -r $script_dir/settings.json ~/.local/share/code-server/User/settings.json
+    cp -r $script_dir/script ~/script
+    cp $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 }
 
 # Copy code-server config
@@ -24,11 +24,12 @@ touch ~/.local/share/code-server/User/settings.json
 
 create_symlinks
 
-
 # Custom Fonts
 git clone https://github.com/tuanpham-dev/code-server-font-patch.git
 cd code-server-font-patch
 sudo ./patch.sh
+
+cd ~
 
 
 # Install zsh and oh-my-zsh
@@ -45,6 +46,7 @@ code-server --install-extension pkief.material-icon-theme
 
 wget https://files.mcaq.me/5x2r7.vsix
 code-server --install-extension 5x2r7.vsix
+rm 5x2r7.vsix
 
 # Prepare Armada Repos
 mkdir -p ~/projects

@@ -8,7 +8,12 @@ sudo ./patch.sh
 # Install zsh and oh-my-zsh
 sudo apt update -y
 sudo apt install zsh -y
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+USER=${USER:-$(id -u -n)}
+zsh=$(command -v zsh)
+sudo chsh -s "$zsh" "$USER"
+export SHELL="$zsh"
 
 # Copy all files to home directory
 cd ~/.config/coderv2/dotfiles

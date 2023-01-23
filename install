@@ -2,7 +2,7 @@
 
 create_symlinks() {
     # Get the directory in which this script lives.
-    script_dir=$(dirname "$(readlink -f "$0")")
+    script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
     # Get a list of all files in this directory that start with a dot.
     files=$(find -maxdepth 1 -type f -name ".*")

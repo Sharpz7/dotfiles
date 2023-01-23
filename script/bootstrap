@@ -5,22 +5,32 @@ git clone https://github.com/tuanpham-dev/code-server-font-patch.git
 cd code-server-font-patch
 sudo ./patch.sh
 
+#!/bin/bash
+
+create_symlinks() {
+    # Get the directory in which this script lives.
+    script_dir=$(dirname "$(readlink -f "$0")")
+
+    # Get a list of all files in this directory that start with a dot.
+    files=$(find -maxdepth 1 -type f -name ".*")
+
+    # Create a symbolic link to each file in the home directory.
+    for file in $files; do
+        name=$(basename $file)
+        echo "Creating symlink to $name in home directory."
+        rm -rf ~/$name
+        ln -s $script_dir/$name ~/$name
+    done
+
+    cp $script_dir/script ~/script
+}
+
+create_symlinks
+
 # Install zsh and oh-my-zsh
 sudo apt update -y
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-USER=${USER:-$(id -u -n)}
-zsh=$(command -v zsh)
-sudo chsh -s "$zsh" "$USER"
-export SHELL="$zsh"
-
-# Copy all files to home directory
-cd ~/.config/coderv2/dotfiles
-cp -r .gitconfig ~/.gitconfig
-cp -r .zshrc ~/.zshrc
-cp -r .profile ~/.profile
-cp -r script ~/.script
 
 # Copy code-server config
 touch ~/.local/share/code-server/User/settings.json

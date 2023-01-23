@@ -57,5 +57,6 @@
     "python.formatting.provider": "black",
     "python.linting.mypyEnabled": true,
     "editor.formatOnSave": true,
-    "vscode-pets.position": "explorer"
+    "vscode-pets.position": "explorer",
+    "terminal.integrated.defaultProfile.linux": "zsh"
 }

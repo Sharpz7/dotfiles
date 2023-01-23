@@ -21,9 +21,12 @@ create_symlinks() {
         rm -rf ~/$name
         ln -s $script_dir/$name ~/$name
     done
-
-    cp $script_dir/script ~/script
 }
+
+# Copy code-server config
+touch ~/.local/share/code-server/User/settings.json
+cp $script_dir/script ~/script
+cp -r $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 
 create_symlinks
 
@@ -32,9 +35,6 @@ sudo apt update -y
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# Copy code-server config
-touch ~/.local/share/code-server/User/settings.json
-cp -r settings.json ~/.local/share/code-server/User/settings.json
 
 # Install Extensions
 code-server --install-extension golang.go

@@ -76,3 +76,10 @@ insert_envs() {
         echo "*" > ~/projects/$name/env/.gitignore
     done
 }
+
+get_zsh()
+font_fix()
+install_extensions()
+get_git_repos()
+insert_envs()
+create_symlinks()

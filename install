@@ -77,9 +77,9 @@ insert_envs() {
     done
 }
 
-get_zsh()
-font_fix()
-install_extensions()
-get_git_repos()
-insert_envs()
-create_symlinks()
+get_zsh
+font_fix
+install_extensions
+get_git_repos
+insert_envs
+create_symlinks

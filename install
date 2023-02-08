@@ -1,6 +1,11 @@
 #!/bin/bash
 
 create_symlinks() {
+    cd ~
+
+    # Copy code-server config
+    touch ~/.local/share/code-server/User/settings.json
+
     # Get the directory in which this script lives.
     script_dir="/home/coder/dotfiles"
 
@@ -19,36 +24,55 @@ create_symlinks() {
     cp $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 }
 
-# Install zsh and oh-my-zsh
-sudo apt update -y
-sudo apt install zsh -y
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+get_git_repos() {
+    # Prepare Armada Repos
+    mkdir -p ~/projects
+    cd ~/projects
 
-# Custom Fonts
-git clone https://github.com/tuanpham-dev/code-server-font-patch.git
-cd code-server-font-patch
-sudo ./patch.sh
-cd ~
+    git clone https://github.com/armadaproject/armada.git
+    git clone https://github.com/armadaproject/armada-operator.git
+}
 
-# Install Extensions
-code-server --install-extension golang.go
-code-server --install-extension ms-python.python
-code-server --install-extension gulajavaministudio.mayukaithemevsc
-code-server --install-extension pkief.material-icon-theme
+get_zsh() {
+    cd ~
+    # Install zsh and oh-my-zsh
+    sudo apt update -y
+    sudo apt install zsh -y
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+}
 
-wget https://files.mcaq.me/5x2r7.vsix
-code-server --install-extension 5x2r7.vsix
-rm 5x2r7.vsix
+font_fix() {
+    cd ~
+    # Custom Fonts
+    git clone https://github.com/tuanpham-dev/code-server-font-patch.git
+    cd code-server-font-patch
+    sudo ./patch.sh
+}
 
-# Prepare Armada Repos
-mkdir -p ~/projects
-cd ~/projects
+install_extensions() {
+    cd ~
+    # Install Extensions
+    code-server --install-extension golang.go
+    code-server --install-extension ms-python.python
+    code-server --install-extension gulajavaministudio.mayukaithemevsc
+    code-server --install-extension pkief.material-icon-theme
 
-git clone https://github.com/armadaproject/armada.git
-git clone https://github.com/armadaproject/armada-operator.git
+    wget https://files.mcaq.me/5x2r7.vsix
+    code-server --install-extension 5x2r7.vsix
+    rm 5x2r7.vsix
+}
 
-cd ~
-# Copy code-server config
-touch ~/.local/share/code-server/User/settings.json
+insert_envs() {
+    script_dir="/home/coder/dotfiles/envs"
 
-create_symlinks
+    # for each dir in script_dir, get its name, and copy it to
+    # ~/projects/{folder_name}/env
+    for dir in $script_dir/*; do
+        name=$(basename $dir)
+        echo "Copying envs to $name"
+        cp -r $dir ~/projects/$name/env
+
+        # Also insert a .gitignore file to ignore the env folder
+        echo "*" > ~/projects/$name/env/.gitignore
+    done
+}

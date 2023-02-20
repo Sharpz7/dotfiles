@@ -70,7 +70,7 @@ insert_envs() {
     for dir in $script_dir/*; do
         name=$(basename $dir)
         echo "Copying envs to $name"
-        cp -r $dir ~/projects/$name/env
+        cp -r $dir/* ~/projects/$name/env
 
         # Also insert a .gitignore file to ignore the env folder
         echo "*" > ~/projects/$name/env/.gitignore

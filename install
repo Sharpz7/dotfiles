@@ -77,9 +77,14 @@ insert_envs() {
     done
 }
 
+install_sharpset() {
+    sudo curl -s -L https://github.com/SharpSet/sharpdev/releases/download/1.7/install.sh | sudo bash
+}
+
 get_zsh
 font_fix
 install_extensions
 get_git_repos
 insert_envs
 create_symlinks
+install_sharpset

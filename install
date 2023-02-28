@@ -56,6 +56,7 @@ install_extensions() {
     code-server --install-extension ms-python.python
     code-server --install-extension gulajavaministudio.mayukaithemevsc
     code-server --install-extension pkief.material-icon-theme
+    code-server --install-extension github.vscode-pull-request-github
 
     wget https://files.mcaq.me/5x2r7.vsix
     code-server --install-extension 5x2r7.vsix

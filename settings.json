@@ -40,8 +40,10 @@
     "extensions.autoUpdate": false,
     "editor.inlineSuggest.enabled": true,
     "window.menuBarVisibility": "classic",
-    "go.formatTool": "goimports",
     "go.useLanguageServer": true,
+    "gopls": {
+        "formatting.gofumpt": true,
+    },
     "workbench.iconTheme": "material-icon-theme",
     "python.linting.flake8Enabled": true,
     "github.copilot.enable": {
@@ -58,5 +60,6 @@
     "python.linting.mypyEnabled": true,
     "editor.formatOnSave": true,
     "vscode-pets.position": "explorer",
-    "terminal.integrated.defaultProfile.linux": "zsh"
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "git.autofetch": true
 }

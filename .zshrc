@@ -104,3 +104,5 @@ export PATH=$GOROOT/bin:$PATH
 
 # export GOROOT=$(go1.18.9 env GOROOT)
 # export PATH=$GOROOT/bin:$PATH
+
+export PATH="/home/coder/.local/bin:$PATH"

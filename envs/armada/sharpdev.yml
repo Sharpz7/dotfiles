@@ -1,14 +1,21 @@
 version: 1
 
-envfile: .env
-
-setup: |
-  echo 'Setup command goes here'
+envfile: env/.env
 
 scripts:
-  default: echo 'I am the default command'
-  echo: echo $_ARG1 $_ARG2
-  say_secret: echo SECRET
+  setup: |
+    PROTOC_ZIP=protoc-3.17.3-linux-x86_64.zip
+    curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/$PROTOC_ZIP
+    sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
+    sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
+    rm -f $PROTOC_ZIP
+    sudo chmod +x /usr/local/bin/protoc
 
-values:
-  SECRET: Secret123
+    # install kind
+    go install sigs.k8s.io/kind@latest
+
+  test: |
+    export ARMADA_EXECUTOR_INGRESS_URL="http://localhost"
+    export ARMADA_EXECUTOR_INGRESS_PORT=5001
+    go run cmd/armadactl/main.go create queue e2e-test-queue
+    go run cmd/testsuite/main.go test --tests "testsuite/testcases/basic/*" --junit junit.xml

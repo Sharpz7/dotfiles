@@ -17,5 +17,22 @@ scripts:
   test: |
     export ARMADA_EXECUTOR_INGRESS_URL="http://localhost"
     export ARMADA_EXECUTOR_INGRESS_PORT=5001
-    go run cmd/armadactl/main.go create queue e2e-test-queue
-    go run cmd/testsuite/main.go test --tests "testsuite/testcases/basic/*" --junit junit.xml
+    ./bin/armadactl create queue e2e-test-queue
+    ./bin/testsuite test --tests "testsuite/testcases/basic/*" --junit junit.xml
+
+  test2: |
+    ./bin/armadactl create queue e2e-test-queue
+    ./bin/testsuite test --tests "testsuite/testcases/basic/submit_1x1.yaml"
+
+  eventingester: |
+    export $(cat developer/env/localhost_access.env | xargs)
+    ./bin/eventingester
+
+  executor: |
+    sudo kill -9 $(sudo lsof -t -i:8080)
+    sudo $(cat developer/env/localhost_access.env developer/env/executor.env | xargs) KUBECONFIG=".kube/external/config" ./bin/executor
+
+  server: |
+    export $(cat developer/env/localhost_access.env | xargs)
+    export ARMADA_HTTPPORT=8081
+    ./bin/server --config developer/config/insecure-armada.yaml

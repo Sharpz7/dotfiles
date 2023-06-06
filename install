@@ -68,7 +68,7 @@ insert_envs() {
 
     # for each dir in script_dir, get its name, and copy it to
     # ~/projects/{folder_name}/env
-    for dir in $script_dir/env/*; do
+    for dir in $script_dir/envs/*; do
         name=$(basename $dir)
         echo "Copying envs to $name"
         cp -r $dir/* ~/projects/$name/env

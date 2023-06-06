@@ -7,7 +7,7 @@ create_symlinks() {
     touch ~/.local/share/code-server/User/settings.json
 
     # Get the directory in which this script lives.
-    script_dir="/home/coder/dotfiles"
+    script_dir="$(dirname "$(realpath "$0")")"
 
     # Get a list of all files in this directory that start with a dot.
     files=$(find $script_dir -maxdepth 1 -name ".*" -type f)
@@ -64,11 +64,11 @@ install_extensions() {
 }
 
 insert_envs() {
-    script_dir="/home/coder/dotfiles/envs"
+    script_dir="$(dirname "$(realpath "$0")")"
 
     # for each dir in script_dir, get its name, and copy it to
     # ~/projects/{folder_name}/env
-    for dir in $script_dir/*; do
+    for dir in $script_dir/env/*; do
         name=$(basename $dir)
         echo "Copying envs to $name"
         cp -r $dir/* ~/projects/$name/env

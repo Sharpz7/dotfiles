@@ -86,7 +86,7 @@ install_sharpset() {
 get_zsh
 font_fix
 install_extensions
-get_git_repos
+# get_git_repos
 insert_envs
 create_symlinks
 install_sharpset

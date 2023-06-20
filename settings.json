@@ -7,7 +7,7 @@
     "python.linting.pylintEnabled": true,
     // FuraCode NF
     "editor.fontFamily": "'Fira Code', 'FiraCode Nerd Font', Consolas, 'Courier New', monospace",
-    "terminal.integrated.fontFamily": "'Fira Code', 'FuraCode NF', Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "'Fira Code', 'FiraCode Nerd Font', Consolas, 'Courier New', monospace",
     "editor.fontLigatures": true,
     "editor.fontWeight": "500",
     "editor.fontSize": 12,

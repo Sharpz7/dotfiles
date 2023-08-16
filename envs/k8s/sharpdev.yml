@@ -1,0 +1,36 @@
+version: 1
+
+scripts:
+  jobtest: |
+    #!/bin/bash
+
+    # Run the command
+    OUTPUT=$(CGO_ENABLED=1 make test WHAT=./pkg/controller/job KUBE_COVER=y)
+
+    # Extract the path of the HTML file from the output
+    HTML_PATH=$(echo "$OUTPUT" | grep -o "/tmp/k8s_coverage/.*/combined-coverage.html")
+
+    # Copy the HTML file to the current directory
+    cp "$HTML_PATH" .
+
+    # Inform the user
+    echo "Coverage report copied to $(pwd)/combined-coverage.html"
+
+  setup: |
+    ./hack/install-etcd.sh
+    export PATH="$GOPATH/src/k8s.io/kubernetes/third_party/etcd:${PATH}"
+    make WHAT=cmd/kubectl
+    sudo apt install net-tools
+
+  merge_upstream: |
+    # Get name of the current git origin
+    REPO=$(git remote get-url origin)
+
+    git remote add upstream $REPO || true
+    git fetch upstream
+    git checkout master
+    git merge upstream/master
+    git push origin master
+
+  notes: |
+    ./hack/verify-golangci-lint.sh

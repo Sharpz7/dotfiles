@@ -1,3 +1,4 @@
+// https://github.com/Sharpz7/dotfiles/blob/main/settings.json
 {
     "git.enableSmartCommit": true,
     "files.trimTrailingWhitespace": true,
@@ -41,9 +42,6 @@
     "editor.inlineSuggest.enabled": true,
     "window.menuBarVisibility": "classic",
     "go.useLanguageServer": true,
-    "gopls": {
-        "formatting.gofumpt": true,
-    },
     "workbench.iconTheme": "material-icon-theme",
     "python.linting.flake8Enabled": true,
     "github.copilot.enable": {

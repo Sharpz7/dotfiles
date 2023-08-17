@@ -2,9 +2,12 @@
 
 version: 1
 
+# envfile: env/.env
+
 scripts:
-  gitignore: |
+  init: |
     echo "*" > ./env/.gitignore
+    echo "REPO=https://github.com/kubernetes/kubernetes.git" > ./env/.env
 
   jobtest: |
     #!/bin/bash
@@ -27,15 +30,11 @@ scripts:
     make WHAT=cmd/kubectl
     sudo apt install net-tools
 
-  merge_upstream: |
-    # Get name of the current git origin
-    REPO=$(git remote get-url origin)
+  fork: |
+    ~/script/merge-upstream.sh
 
-    git remote add upstream $REPO || true
-    git fetch upstream
-    git checkout master
-    git merge upstream/master
-    git push origin master
+  verify: |
+    # Pre Checks
+    ./hack/update-openapi-spec.sh
 
-  notes: |
-    ./hack/verify-golangci-lint.sh
+    make verify

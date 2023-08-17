@@ -1,6 +1,11 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/k8s/sharpdev.yml
+
 version: 1
 
 scripts:
+  gitignore: |
+    echo "*" > ./env/.gitignore
+
   jobtest: |
     #!/bin/bash
 

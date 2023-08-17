@@ -21,6 +21,8 @@ create_symlinks() {
     done
 
     cp -r $script_dir/script ~/script
+    sudo find ~/script -type f -exec chmod +x {} \;
+
     cp $script_dir/settings.json ~/.local/share/code-server/User/settings.json
 }
 

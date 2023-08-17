@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir -p $GOPATH/src
 mkdir -p $GOPATH/src/k8s.io
 

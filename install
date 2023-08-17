@@ -58,11 +58,8 @@ install_extensions() {
     rm copilot.vsix
 }
 
-install_sharpset() {
-    sudo curl -s -L https://github.com/SharpSet/sharpdev/releases/download/1.7/install.sh | sudo bash
-}
-
-install_poetry() {
+install_tools() {
+    sudo curl -s -L https://github.com/SharpSet/sharpdev/releases/download/1.8/install.sh | sudo bash
     curl -sSL https://install.python-poetry.org | python3 -
 }
 
@@ -70,5 +67,4 @@ get_zsh
 font_fix
 install_extensions
 create_symlinks
-install_sharpset
-install_poetry
+install_tools

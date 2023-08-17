@@ -1,5 +1,3 @@
-sudo apt install net-tools
-
 mkdir -p $GOPATH/src
 mkdir -p $GOPATH/src/k8s.io
 

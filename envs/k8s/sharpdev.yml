@@ -12,8 +12,7 @@ scripts:
   jobtest: |
 
     # Run the command
-    OUTPUT=$(CGO_ENABLED=1 make test WHAT=./pkg/controller/job KUBE_COVER=y)
-    echo $OUTPUT
+    OUTPUT=$(CGO_ENABLED=1 make test WHAT=./pkg/controller/job KUBE_COVER=y | tee /dev/tty)
 
     # Extract the path of the HTML file from the output
     HTML_PATH=$(echo "$OUTPUT" | grep -o "/tmp/k8s_coverage/.*/combined-coverage.html")

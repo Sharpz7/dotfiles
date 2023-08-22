@@ -10,10 +10,10 @@ scripts:
     echo "REPO=https://github.com/kubernetes/kubernetes.git" > ./env/.env
 
   jobtest: |
-    #!/bin/bash
 
     # Run the command
     OUTPUT=$(CGO_ENABLED=1 make test WHAT=./pkg/controller/job KUBE_COVER=y)
+    echo $OUTPUT
 
     # Extract the path of the HTML file from the output
     HTML_PATH=$(echo "$OUTPUT" | grep -o "/tmp/k8s_coverage/.*/combined-coverage.html")

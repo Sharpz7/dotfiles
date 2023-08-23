@@ -1,8 +1,13 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/armada/sharpdev.yml
+
 version: 1
 
 envfile: ./developer/env/localhost_access.env
 
 scripts:
+  init: |
+    echo "*" > ./env/.gitignore
+
   fork: |
     git remote add upstream https://github.com/armadaproject/armada.git
     git fetch upstream

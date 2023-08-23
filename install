@@ -51,7 +51,7 @@ install_extensions() {
     code-server --install-extension pkief.material-icon-theme
     code-server --install-extension HashiCorp.terraform
     code-server --install-extension ritwickdey.liveserver
-    code-server --install-extension dart-code.flutter
+    code-server --install-extension tonybaloney.vscode-pets
 
     wget https://drive.google.com/uc\?id\=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu
     mv 'uc?id=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu' copilot.vsix

@@ -60,5 +60,6 @@
     "vscode-pets.position": "explorer",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "git.autofetch": true,
-    "go.formatTool": "gofmt"
+    "go.formatTool": "gofmt",
+    "go.lintOnSave": "file"
 }

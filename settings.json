@@ -57,9 +57,12 @@
     "python.formatting.provider": "black",
     "python.linting.mypyEnabled": true,
     "editor.formatOnSave": true,
-    "vscode-pets.position": "explorer",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "git.autofetch": true,
     "go.formatTool": "gofmt",
-    "go.lintOnSave": "file"
+    "go.lintOnSave": "file",
+    "vscode-pets.position": "explorer",
+    "vscode-pets.theme": "castle",
+    "vscode-pets.petSize": "small",
+    "vscode-pets.petColor": "black"
 }

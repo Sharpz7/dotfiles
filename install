@@ -47,17 +47,6 @@ font_fix() {
     sudo ./patch.sh
 }
 
-install_extensions_vscode() {
-    code --install-extension golang.go
-    code --install-extension ms-python.python
-    code --install-extension gulajavaministudio.mayukaithemevsc
-    code --install-extension pkief.material-icon-theme
-    code --install-extension HashiCorp.terraform
-    code --install-extension ritwickdey.liveserver
-    code --install-extension tonybaloney.vscode-pets 
-    code --install-extension github.copilot
-}
-
 install_extensions_code_server() {
     cd ~
     code-server --install-extension golang.go
@@ -84,8 +73,6 @@ if command -v code-server > /dev/null 2>&1; then
     font_fix
     install_extensions_code_server
     add_settings
-else
-    install_extensions_vscode
 fi
 
 get_zsh

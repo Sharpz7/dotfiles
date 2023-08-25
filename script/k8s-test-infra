@@ -1,0 +1,15 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/k8s-test-infra/sharpdev.yml
+
+version: 1
+
+# envfile: env/.env
+
+scripts:
+  init: |
+    echo "*" > ./env/.gitignore
+
+scripts:
+  fork: |
+    export REPO=https://github.com/kubernetes/test-infra.git
+    ~/script/merge-upstream.sh
+

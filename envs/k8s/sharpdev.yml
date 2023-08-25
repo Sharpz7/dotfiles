@@ -34,8 +34,11 @@ scripts:
     ~/script/merge-upstream.sh
 
   verify: |
-    make update
+    export PATH="/home/coder/go/src/k8s.io/kubernetes/third_party/protoc:${PATH}"
     make verify
+
+  update: |
+    make update
 
   rebase: |
     git rebase upstream/master

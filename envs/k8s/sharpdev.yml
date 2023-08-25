@@ -33,7 +33,9 @@ scripts:
     ~/script/merge-upstream.sh
 
   verify: |
-    # Pre Checks
-    ./hack/update-openapi-spec.sh
-
+    make update
     make verify
+
+  rebase: |
+    git rebase upstream/master
+

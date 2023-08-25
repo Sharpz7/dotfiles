@@ -25,6 +25,7 @@ scripts:
 
   setup: |
     ./hack/install-etcd.sh
+    ./hack/install-protoc.sh
     export PATH="$GOPATH/src/k8s.io/kubernetes/third_party/etcd:${PATH}"
     make WHAT=cmd/kubectl
     sudo apt install net-tools

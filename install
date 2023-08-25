@@ -44,19 +44,32 @@ font_fix() {
 
 install_extensions() {
     cd ~
-    # Install Extensions
-    code-server --install-extension golang.go
-    code-server --install-extension ms-python.python
-    code-server --install-extension gulajavaministudio.mayukaithemevsc
-    code-server --install-extension pkief.material-icon-theme
-    code-server --install-extension HashiCorp.terraform
-    code-server --install-extension ritwickdey.liveserver
-    code-server --install-extension tonybaloney.vscode-pets
+    # Check if code-server binary exists
+    if command -v code-server > /dev/null 2>&1; then
+        code-server --install-extension golang.go
+        code-server --install-extension ms-python.python
+        code-server --install-extension gulajavaministudio.mayukaithemevsc
+        code-server --install-extension pkief.material-icon-theme
+        code-server --install-extension HashiCorp.terraform
+        code-server --install-extension ritwickdey.liveserver
+        code-server --install-extension tonybaloney.vscode-pets
 
-    wget https://drive.google.com/uc\?id\=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu
-    mv 'uc?id=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu' copilot.vsix
-    code-server --install-extension copilot.vsix
-    rm copilot.vsix
+        wget https://drive.google.com/uc\?id\=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu
+        mv 'uc?id=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu' copilot.vsix
+        code-server --install-extension copilot.vsix
+        rm copilot.vsix
+    else
+        code --install-extension golang.go
+        code --install-extension ms-python.python
+        code --install-extension gulajavaministudio.mayukaithemevsc
+        code --install-extension pkief.material-icon-theme
+        code --install-extension HashiCorp.terraform
+        code --install-extension ritwickdey.liveserver
+        code --install-extension tonybaloney.vscode-pets 
+        code --install-extension github.copilot
+    fi
+
+
 }
 
 install_tools() {

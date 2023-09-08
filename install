@@ -21,16 +21,6 @@ create_symlinks() {
     sudo find ~/script -type f -exec chmod +x {} \;
 }
 
-add_settings() {
-    # Copy code-server config
-    touch ~/.local/share/code-server/User/settings.json
-
-    # Get the directory in which this script lives.
-    script_dir="$(dirname "$(realpath "$0")")"
-
-    cp $script_dir/settings.json ~/.local/share/code-server/User/settings.json
-}
-
 get_zsh() {
     cd ~
     # Install zsh and oh-my-zsh
@@ -39,41 +29,10 @@ get_zsh() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
-font_fix() {
-    cd ~
-    # Custom Fonts
-    git clone https://github.com/tuanpham-dev/code-server-font-patch.git
-    cd code-server-font-patch
-    sudo ./patch.sh
-}
-
-install_extensions_code_server() {
-    cd ~
-    code-server --install-extension golang.go
-    code-server --install-extension ms-python.python
-    code-server --install-extension gulajavaministudio.mayukaithemevsc
-    code-server --install-extension pkief.material-icon-theme
-    code-server --install-extension HashiCorp.terraform
-    code-server --install-extension ritwickdey.liveserver
-    code-server --install-extension tonybaloney.vscode-pets
-
-    wget https://drive.google.com/uc\?id\=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu
-    mv 'uc?id=1QVMynh6yf_4UUESzbt46jzRLQxLAwrfu' copilot.vsix
-    code-server --install-extension copilot.vsix
-    rm copilot.vsix
-}
-
 install_tools() {
     sudo curl -s -L https://github.com/SharpSet/sharpdev/releases/download/1.8/install.sh | sudo bash
     curl -sSL https://install.python-poetry.org | python3 -
 }
-
-# If code-server is installed
-if command -v code-server > /dev/null 2>&1; then
-    font_fix
-    install_extensions_code_server
-    add_settings
-fi
 
 get_zsh
 create_symlinks

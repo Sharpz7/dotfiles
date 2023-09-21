@@ -42,7 +42,7 @@
     "editor.inlineSuggest.enabled": true,
     "window.menuBarVisibility": "classic",
     "go.useLanguageServer": true,
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.iconTheme": "vscode-icons",
     "python.linting.flake8Enabled": true,
     "github.copilot.enable": {
         "*": true,
@@ -64,5 +64,53 @@
     "vscode-pets.position": "explorer",
     "vscode-pets.theme": "castle",
     "vscode-pets.petSize": "small",
-    "vscode-pets.petColor": "black"
+    "vscode-pets.petColor": "black",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "remote.SSH.remotePlatform": {
+        "coder-vscode--sharpz7--general--main": "linux",
+        "coder-vscode--Sharpz7--General": "linux",
+        "coder-vscode--sharpz7--general": "linux",
+        "coder-vscode--Sharpz7--Test-GCP--main": "linux",
+        "coder-vscode--sharpz7--test-gcp--main": "linux",
+        "coder-vscode--Sharpz7--General--main": "linux",
+        "coder-vscode--Sharpz7--Test-GCP": "linux"
+    },
+    "vsicons.dontShowNewVersionMessage": true,
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "--shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "--shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "--shell-escape",
+                "%DOCFILE%"
+            ],
+            "env": {}
+        }
+    ]
 }

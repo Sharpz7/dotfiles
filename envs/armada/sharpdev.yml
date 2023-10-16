@@ -23,6 +23,8 @@ scripts:
     rm -f $PROTOC_ZIP
     sudo chmod +x /usr/local/bin/protoc
     go install github.com/magefile/mage@latest
+    curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.54.2
+    mage bootstraptools
 
   airflow-setup: |
     mage airflow start

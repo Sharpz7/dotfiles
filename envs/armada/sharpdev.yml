@@ -38,3 +38,7 @@ scripts:
 
   server: |
     go run ./cmd/armada/main.go --config ./developer/config/insecure-armada.yaml
+
+  reset_fork: |
+    git reset --hard upstream/master
+    git push origin master --force

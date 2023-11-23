@@ -8,6 +8,41 @@ scripts:
   init: |
     echo "*" > ./env/.gitignore
     echo "REPO=https://github.com/kubernetes/kubernetes.git" > ./env/.env
+    echo "apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: myapp
+      namespace: default
+      labels:
+        app: myapp
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: myapp
+      template:
+        metadata:
+          labels:
+            app: myapp
+        spec:
+          containers:
+            - name: myapp
+              image: alpine:latest
+              command: ['sh', '-c', 'while true; do echo \"logging\" >> /opt/logs.txt; sleep 1; done']
+              volumeMounts:
+                - name: data
+                  mountPath: /opt
+          initContainers:
+            - name: logshipper
+              image: alpine:latest
+              command: ['sh', '-c', 'tail -F /opt/logs.txt']
+              volumeMounts:
+                - name: data
+                  mountPath: /opt
+          volumes:
+            - name: data
+              emptyDir: {}" > ./env/deployment.yaml
+
 
   jobtest: |
 
@@ -42,4 +77,18 @@ scripts:
 
   rebase: |
     git rebase upstream/master
+
+  kind: |
+    go install sigs.k8s.io/kind@latest
+    kind create cluster --name k8s-test
+
+    kind get kubeconfig --name k8s-test > ./env/kind-kubeconfig.yaml
+
+    sharpdev kubectl apply -f ./env/deployment.yaml
+
+  kubectl: |
+    kubectl --kubeconfig ./env/kind-kubeconfig.yaml $_ARG1 $_ARG2 $_ARG3 $_ARG4 $_ARG5 $_ARG6 $_ARG7 $_ARG8 $_ARG9
+
+  delete: |
+    kind delete cluster --name k8s-test
 

@@ -101,8 +101,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/home/coder/.local/bin:$PATH"
 
 # code to easily switch golang versions
-export GOROOT=$(go env GOROOT)
-export PATH=$GOROOT/bin:$PATH
+# export GOROOT=$(go env GOROOT)
+# export PATH=$GOROOT/bin:$PATH
 
 # export GOROOT=$(go1.21.3 env GOROOT)
 # export PATH=$GOROOT/bin:$PATH

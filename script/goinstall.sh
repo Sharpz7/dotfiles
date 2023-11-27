@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default version
-VERSION="1.19.7"
+VERSION="1.21.3"
 
 # Function to display help
 show_help() {

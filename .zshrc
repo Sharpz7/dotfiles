@@ -100,6 +100,11 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="/home/coder/.local/bin:$PATH"
 
+if [[ -d "/opt/conda/bin" ]]; then
+    # Prepend /opt/conda/bin to PATH
+    export PATH="/opt/conda/bin:$PATH"
+fi
+
 # code to easily switch golang versions
 # export GOROOT=$(go env GOROOT)
 # export PATH=$GOROOT/bin:$PATH

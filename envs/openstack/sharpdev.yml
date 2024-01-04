@@ -7,6 +7,23 @@ version: 1
 # https://docs.opendev.org/opendev/infra-manual/latest/sandbox.html
 
 scripts:
+  key: |
+    if [ ! -f ~/.ssh/id_rsa ]; then
+      touch ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      nano ~/.ssh/id_rsa
+    fi
+
+    # if file does not exist (sh)
+    if [ ! -f ~/.ssh/config ]; then
+      touch ~/.ssh/config
+      echo "Host review.opendev.org" >> ~/.ssh/config
+      echo "  ForwardAgent yes" >> ~/.ssh/config
+    fi
+
+  git-init: |
+    eval `ssh-agent`
+
   setup: |
     git config core.editor "vscode"
     sudo apt install -y git-review
@@ -14,9 +31,11 @@ scripts:
     echo "*" > ./env/.gitignore
     git review -s
 
-
   # git clone https://opendev.org/opendev/sandbox
   init: |
     git checkout -b new-branch
     # Create new file
     git review
+
+  git_config: |
+    git config --list --show-origin

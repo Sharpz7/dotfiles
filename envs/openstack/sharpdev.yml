@@ -5,6 +5,7 @@ version: 1
 # envfile: env/.env
 
 # https://docs.opendev.org/opendev/infra-manual/latest/sandbox.html
+# https://docs.opendev.org/opendev/infra-manual/latest/developers.html
 
 scripts:
   key: |
@@ -42,5 +43,23 @@ scripts:
     git commit -m "Initial commit from Adam"
     git review -R
 
+    # For Topic
+    # git review -R -t testing
+
   git_config: |
     git config --list --show-origin
+
+  commit: |
+    git add .
+    git commit -s -m $_ARG1
+
+  latest: |
+    git remote update
+    git checkout master
+    git pull --ff-only origin master
+
+  squash: |
+    git checkout master
+    git pull origin master
+    git checkout TOPIC-BRANCH
+    git rebase -i master

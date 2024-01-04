@@ -21,21 +21,26 @@ scripts:
       echo "  ForwardAgent yes" >> ~/.ssh/config
     fi
 
-  git-init: |
-    eval `ssh-agent`
-
   setup: |
     git config core.editor "vscode"
     sudo apt install -y git-review
 
     echo "*" > ./env/.gitignore
+    git config --global --add gitreview.username "adamcarthur"
     git review -s
 
+    # set git config to be merges instead of preserve
+
+  git-init: |
+    eval `ssh-agent`
+
   # git clone https://opendev.org/opendev/sandbox
-  init: |
-    git checkout -b new-branch
-    # Create new file
-    git review
+  test: |
+    git checkout -b testing
+    echo "# Hello World" > adam.md
+    git add .
+    git commit -m "Initial commit from Adam"
+    git review -R
 
   git_config: |
     git config --list --show-origin

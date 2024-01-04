@@ -23,14 +23,12 @@ scripts:
     fi
 
   setup: |
-    git config core.editor "vscode"
     sudo apt install -y git-review
 
     echo "*" > ./env/.gitignore
-    git config --global --add gitreview.username "adamcarthur"
+    git config --add gitreview.username "adamcarthur"
+    git config core.editor "vscode"
     git review -s
-
-    # set git config to be merges instead of preserve
 
   git-init: |
     eval `ssh-agent`

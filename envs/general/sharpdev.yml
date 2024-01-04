@@ -1,0 +1,11 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/general/sharpdev.yml
+
+version: 1
+
+scripts:
+  fork: |
+    git remote add upstream https://github.com/
+    git fetch upstream
+    git checkout master
+    git merge upstream/master
+    git push origin master

@@ -1,0 +1,20 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/openstack/sharpdev.yml
+
+version: 1
+
+# envfile: env/.env
+
+# https://docs.opendev.org/opendev/infra-manual/latest/sandbox.html
+
+scripts:
+  setup: |
+    git config core.editor "vscode"
+
+  init: |
+    git clone https://opendev.org/opendev/sandbox
+    git review -
+    git checkout -b new-branch
+    # Create new file
+    git status
+
+    git review

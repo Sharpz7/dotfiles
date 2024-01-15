@@ -2,12 +2,16 @@
 
 version: 1
 
-envfile: env/.env
+# envfile: env/.env
 
 # https://docs.opendev.org/opendev/infra-manual/latest/sandbox.html
 # https://docs.opendev.org/opendev/infra-manual/latest/developers.html
 
 scripts:
+  init: |
+    "\*" > ./env/.gitignore
+    touch ./env/.env
+
   key: |
     if [ ! -f ~/.ssh/id_rsa ]; then
       touch ~/.ssh/id_rsa

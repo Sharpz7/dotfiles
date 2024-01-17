@@ -31,7 +31,7 @@ scripts:
 
     echo "*" > ./env/.gitignore
     git config --add gitreview.username "adamcarthur"
-    git config core.editor "vscode"
+    git config core.editor "nano"
     git review -s
 
   git-init: |

@@ -9,7 +9,7 @@ version: 1
 
 scripts:
   init: |
-    "\*" > ./env/.gitignore
+    echo "*" > ./env/.gitignore
     touch ./env/.env
 
   key: |

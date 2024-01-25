@@ -31,12 +31,23 @@ scripts:
 
     echo "*" > ./env/.gitignore
     git config --add gitreview.username "adamcarthur"
+    git config user.name "adamcarthur"
+    git config user.email "adam@mcaq.me"
     git config core.editor "nano"
     git review -s
 
-  git-init: |
-    nohup bash -c "echo $(ssh-agent)" > ./env/ssh-agent 2>&1 &
+  ssh-agent: |
+    sharpdev kill-agents
+    output=$(ssh-agent)
+    echo $output > ./env/agent-init.sh
+    chmod +x ./env/agent-init.sh
+    . ./env/agent-init.sh
     ssh-add
+
+    echo "Run this script to see agent info: [. ./env/agent-init.sh]"
+
+  kill-agents: |
+    sudo pkill ssh-agent
 
   # git clone https://opendev.org/opendev/sandbox
   test: |

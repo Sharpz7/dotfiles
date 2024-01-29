@@ -12,6 +12,18 @@ scripts:
     echo "*" > ./env/.gitignore
     touch ./env/.env
 
+    mkdir -p .vscode
+    cat <<END > .vscode/settings.json
+    {
+        "editor.formatOnSave": false,
+        "black-formatter.args": [
+            "--exclude /"
+        ]
+    }
+    END
+
+    echo "*" > ./.vscode/.gitignore
+
   key: |
     if [ ! -f ~/.ssh/id_rsa ]; then
       touch ~/.ssh/id_rsa

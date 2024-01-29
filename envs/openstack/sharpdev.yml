@@ -15,10 +15,10 @@ scripts:
     mkdir -p .vscode
     cat <<END > .vscode/settings.json
     {
-        "editor.formatOnSave": false,
-        "black-formatter.args": [
-            "--exclude /"
-        ]
+        "[python]": {
+            "editor.formatOnSave": false,
+            "editor.defaultFormatter": null
+        },
     }
     END
 

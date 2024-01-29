@@ -17,7 +17,11 @@ scripts:
     {
         "[python]": {
             "editor.formatOnSave": false,
-            "editor.defaultFormatter": null
+            "editor.defaultFormatter": null,
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": false,
+                "source.fixAll": false,
+            }
         },
     }
     END

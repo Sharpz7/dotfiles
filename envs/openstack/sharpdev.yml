@@ -87,8 +87,8 @@ scripts:
     git review
 
   latest: |
-    git reset --hard origin/master
     git remote update
+    git reset --hard origin
     git checkout master
     git pull --ff-only origin master
 

@@ -87,6 +87,7 @@ scripts:
     git review
 
   latest: |
+    git reset --hard origin/master
     git remote update
     git checkout master
     git pull --ff-only origin master
@@ -96,19 +97,6 @@ scripts:
     git pull origin master
     git checkout TOPIC-BRANCH
     git rebase -i master
-
-  # Note this lives in opt/stack
-  # sudo su - stack
-  deploy: |
-    sudo apt install iproute2 -y
-    git clone https://opendev.org/openstack/devstack.git devstack
-    sudo ./devstack/tools/create-stack-user.sh
-
-    sudo addgroup stack_group
-    sudo adduser stack stack_group
-    sudo adduser coder stack_group
-    sudo chown -R stack:stack_group /opt/stack
-    sudo chmod -R g=u /opt/stack
 
   config: |
     cat >./env/local.conf <<END

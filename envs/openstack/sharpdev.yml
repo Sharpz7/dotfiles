@@ -87,8 +87,8 @@ scripts:
     git review
 
   latest: |
+    git reset --hard origin/master
     git remote update
-    git reset --hard origin
     git checkout master
     git pull --ff-only origin master
 
@@ -97,6 +97,10 @@ scripts:
     git pull origin master
     git checkout TOPIC-BRANCH
     git rebase -i master
+
+  check: |
+    tox -e pep8
+    tox -e py3
 
   config: |
     cat >./env/local.conf <<END

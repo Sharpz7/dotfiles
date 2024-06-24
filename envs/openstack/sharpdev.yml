@@ -8,6 +8,26 @@ version: 1
 # https://docs.opendev.org/opendev/infra-manual/latest/developers.html
 
 scripts:
+  init: |
+    echo "*" > ./env/.gitignore
+    touch ./env/.env
+
+    mkdir -p .vscode
+    cat <<END > .vscode/settings.json
+    {
+        "[python]": {
+            "editor.formatOnSave": false,
+            "editor.defaultFormatter": null,
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": false,
+                "source.fixAll": false,
+            }
+        },
+    }
+    END
+
+    echo "*" > ./.vscode/.gitignore
+
   key: |
     if [ ! -f ~/.ssh/id_rsa ]; then
       touch ~/.ssh/id_rsa
@@ -23,15 +43,27 @@ scripts:
     fi
 
   setup: |
-    sudo apt install -y git-review
+    pip install --user git-review
 
     echo "*" > ./env/.gitignore
     git config --add gitreview.username "adamcarthur"
-    git config core.editor "vscode"
+    git config user.name "adamcarthur"
+    git config user.email "adam@mcaq.me"
+    git config core.editor "nano"
     git review -s
 
-  git-init: |
-    eval `ssh-agent`
+  ssh-agent: |
+    sharpdev kill-agents
+    output=$(ssh-agent)
+    echo $output > ./env/agent-init.sh
+    chmod +x ./env/agent-init.sh
+    . ./env/agent-init.sh
+    ssh-add
+
+    echo "Run this script to see agent info: [. ./env/agent-init.sh]"
+
+  kill-agents: |
+    sudo pkill ssh-agent
 
   # git clone https://opendev.org/opendev/sandbox
   test: |
@@ -51,13 +83,20 @@ scripts:
     git add .
     git commit -s -m $_ARG1
 
+  review: |
+    git review
+
   latest: |
     git remote update
     git checkout master
-    git pull --ff-only origin master
+    git reset --hard origin/master
 
   squash: |
     git checkout master
     git pull origin master
     git checkout TOPIC-BRANCH
     git rebase -i master
+
+  check: |
+    tox -e pep8
+    tox -e py3

@@ -1,0 +1,68 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/ironic-ipa/sharpdev.yml
+
+version: 1
+
+
+# Process Followed:
+# 1. Install the dependencies
+# 2. Clone the ironic-python-agent repository
+# 3. Install the ironic-python-agent-builder
+# 4. Build the image
+# 5. Set the deploy interface to ramdisk
+# 6. Set the kernel and ramdisk for the node
+# 7. Deploy the node
+
+
+scripts:
+  init: |
+    python3 -m venv .venv
+    source .venv/bin/activate
+    git clone https://opendev.org/openstack/ironic-python-agent.git
+    pip install ironic-python-agent-builder
+    # sudo apt install python3-ironicclient
+
+  # https://docs.openstack.org/ironic-python-agent-builder/latest/contributor/index.html#testing-changes-in-dib-images
+  build: |
+    export DIB_REPOLOCATION_ironic_python_agent=/opt/stack/ironic-python-agent
+    export DIB_REPOREF_ironic_python_agent=master
+
+    ironic-python-agent-builder -o testing ubuntu
+
+  check_state: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node list
+    OS_CLOUD=devstack-admin-demo openstack server list --long
+
+  # https://docs.openstack.org/ironic/latest/admin/ramdisk-boot.html
+  boot_ramdisk: |
+    # IRONIC_BUILD_DEPLOY_RAMDISK=False # Does this need to be set to True when building devstack?
+    # DEFAULT_INSTANCE_TYPE=baremetal
+    # is set in the config, so we can choose our own ramdisk.
+
+    OS_CLOUD=devstack-system-admin openstack baremetal node set node-0 --deploy-interface ramdisk
+
+    # check that the deploy interface is set to ramdisk
+    OS_CLOUD=devstack-system-admin openstack baremetal node show node-0 -c deploy_interface
+
+    OS_CLOUD=devstack-system-admin openstack baremetal node set node-0 \
+      --instance-info kernel=file:///opt/stack/ironic-python-agent/testing.kernel \
+      --instance-info ramdisk=file:///opt/stack/ironic-python-agent/testing.initramfs
+
+    OS_CLOUD=devstack-system-admin openstack baremetal node deploy node-0
+
+  create_new_node: |
+    # probably not needed, but just in case
+
+    OS_CLOUD=devstack-system-admin openstack baremetal node create --driver ipmi \
+    --deploy-interface ramdisk \
+    --boot-interface ipxe
+
+  test-clean-node: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node clean node-2 \
+    --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]'
+
+  test-show-node: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node show node-0 \
+      -c provision_state -c last_error
+
+  test-delete-node: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node delete node-0

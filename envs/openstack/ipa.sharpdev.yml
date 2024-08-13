@@ -1,0 +1,115 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/openstack/sharpdev.yml
+
+version: 1
+
+scripts:
+  init: |
+    echo "*" > ./env/.gitignore
+    touch ./env/.env
+
+    mkdir -p .vscode
+    cat <<END > .vscode/settings.json
+    {
+        "[python]": {
+            "editor.formatOnSave": false,
+            "editor.defaultFormatter": null,
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": false,
+                "source.fixAll": false,
+            }
+        },
+    }
+    END
+
+    echo "*" > ./.vscode/.gitignore
+
+  key: |
+    if [ ! -f ~/.ssh/id_rsa ]; then
+      touch ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      nano ~/.ssh/id_rsa
+    fi
+
+    # if file does not exist (sh)
+    if [ ! -f ~/.ssh/config ]; then
+      touch ~/.ssh/config
+      echo "Host review.opendev.org" >> ~/.ssh/config
+      echo "  ForwardAgent yes" >> ~/.ssh/config
+    fi
+
+  setup: |
+    pip install --user git-review
+
+    echo "*" > ./env/.gitignore
+    git config --add gitreview.username "adamcarthur"
+    git config user.name "adamcarthur"
+    git config user.email "adam@mcaq.me"
+    git config core.editor "nano"
+    git review -s
+
+  ssh-agent: |
+    sharpdev kill-agents
+    output=$(ssh-agent)
+    echo $output > ./env/agent-init.sh
+    chmod +x ./env/agent-init.sh
+    . ./env/agent-init.sh
+    ssh-add
+
+    echo "Run this script to see agent info: [. ./env/agent-init.sh]"
+
+  kill-agents: |
+    sudo pkill ssh-agent
+
+  latest: |
+    git remote update
+    git checkout master
+    git reset --hard origin/master
+
+  ironic-list-nodes: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node list
+
+  ironic-clean-node: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node clean v \
+    --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]'
+
+  ironic-show-node: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node show $_ARG1 \
+      -c provision_state -c last_error
+
+  ironic-delete-node: |
+    OS_CLOUD=devstack-system-admin openstack baremetal node delete $_ARG1
+
+  ipa-init: |
+    python3 -m venv .venv
+    . .venv/bin/activate
+    pip install ironic-python-agent-builder ironic-python-agent diskimage-builder
+
+  ipa-build: |
+    . .venv/bin/activate
+    export DIB_REPOREF=master
+    export DIB_RELEASE='9-stream'
+    export ELEMENTS_PATH='/opt/stack/ironic-python-agent-builder/dib'
+    export DIB_REPOLOCATION_ironic_python_agent='file:///opt/stack/dev/ironic-python-agent/'
+    disk-image-create centos -x -o "/opt/stack/dev/ironic-agent" ironic-python-agent-ramdisk
+
+  ipa-push: |
+    OS_CLOUD=devstack-admin-demo openstack image create "ipa-patched.kernel" --public --disk-format aki --container-format aki --file ironic-agent-3.kernel
+    OS_CLOUD=devstack-admin-demo openstack image create "ipa-patched.ramdisk" --public --disk-format ari --container-format ari --file ironic-agent-3.initramfs
+
+    OS_CLOUD=devstack-admin-demo openstack image list
+
+  # /etc/ironic/ironic.conf
+  deploy: |
+    cat /etc/ironic/ironic.conf |grep -E '(deploy_kernel|deploy_ramdisk)'
+    # Retrieve the details of the kernel image
+    OS_CLOUD=devstack-admin-demo openstack image show ironic-python-agent.kernel
+
+    # Retrieve the details of the ramdisk image
+    OS_CLOUD=devstack-admin-demo openstack image show ironic-python-agent.ramdisk
+    read -p "Update these values and press enter to continue"
+
+    sudo systemctl restart devstack@ir-cond.service
+    sudo systemctl restart devstack@ir-api.service
+
+    sudo systemctl status devstack@ir-cond.service
+    sudo systemctl status devstack@ir-api.service

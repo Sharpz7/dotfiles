@@ -1,0 +1,16 @@
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/openstack-ipa/sharpdev.yml
+
+version: 1
+
+scripts:
+  run: |
+    go build -o ./openstack-exporter .
+
+    ./openstack-exporter --os-client-config /etc/openstack/clouds.yaml devstack-system-admin
+
+  test: curl "http://localhost:9180/metrics" | grep openstack_ironic_node
+
+  test3: |
+    # get nodes
+    OS_CLOUD=devstack-system-admin openstack baremetal node list
+    OS_CLOUD=devstack-system-admin openstack baremetal node set --retired node-1 --retired-reason "Testing"

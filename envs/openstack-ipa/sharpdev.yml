@@ -93,7 +93,7 @@ scripts:
     export DIB_RELEASE='9-stream'
     export ELEMENTS_PATH='/opt/stack/ironic-python-agent-builder/dib'
     export DIB_REPOLOCATION_ironic_python_agent='file:///opt/stack/dev/ironic-python-agent/'
-    disk-image-create centos -x -o "/opt/stack/dev/ironic-agent" ironic-python-agent-ramdisk
+    disk-image-create centos -x -o "/opt/stack/dev/ironic-python-agent/ironic-agent" ironic-python-agent-ramdisk
 
   ipa-push: |
     OS_CLOUD=devstack-admin-demo openstack image create "ipa-patched.kernel" --public --disk-format aki --container-format aki --file ironic-agent-3.kernel

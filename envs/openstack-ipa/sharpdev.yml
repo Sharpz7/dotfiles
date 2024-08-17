@@ -1,4 +1,4 @@
-# https://github.com/Sharpz7/dotfiles/blob/main/envs/openstack-exporter/sharpdev.yml
+# https://github.com/Sharpz7/dotfiles/blob/main/envs/openstack-ipa/sharpdev.yml
 
 version: 1
 
@@ -38,9 +38,9 @@ scripts:
     fi
 
   setup: |
-    pip install --user git-review
+    pip install git-review
+    sudo apt install git-review
 
-    echo "*" > ./env/.gitignore
     git config --add gitreview.username "adamcarthur"
     git config user.name "adamcarthur"
     git config user.email "adam@mcaq.me"

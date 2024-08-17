@@ -84,6 +84,9 @@ scripts:
     . .venv/bin/activate
     pip install ironic-python-agent-builder ironic-python-agent diskimage-builder
 
+    ln -s ~/ironic-bm-logs/ ./env
+    ln -s /etc/ironic/ironic.conf ./env/ironic.conf
+
   ipa-build: |
     . .venv/bin/activate
     export DIB_REPOREF=master

@@ -28,6 +28,18 @@ scripts:
 
     echo "*" > ./.vscode/.gitignore
 
+  cursor: |
+    mkdir -p .cursor
+    mkdir -p .cursor/rules
+    cat <<END > .cursor/rules/openstack.mdc
+    @.cursor/rules/quick-rules.md
+    Always follow OpenStack Python style guidelines for code generation.
+    END
+    curl https://raw.githubusercontent.com/SeanMooney/openstack-ai-style-guide/refs/heads/master/docs/quick-rules.md > .cursor/rules/quick-rules.md
+
+    # add a gitignore for .cursor
+    echo "*" > .cursor/.gitignore
+
   key: |
     if [ ! -f ~/.ssh/id_rsa ]; then
       touch ~/.ssh/id_rsa
